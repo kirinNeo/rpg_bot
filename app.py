@@ -67,7 +67,8 @@ def communicate():
 # ユーザーインターフェイスの構築
 st.title(" 対話型ゲーム")
 st.image("mr_runaway.png")
-st.write("現代風RPGです。行動回数が0になる前にドラゴンから逃げ切ってください。")
+st.write("※ChatGPT APIを使ったチャットボットです。
+行動回数が0になる前にドラゴンから逃げ切ってください。")
 
 user_input = st.text_input("メッセージを入力してください。", key="user_input", on_change=communicate)
 

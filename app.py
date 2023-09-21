@@ -40,6 +40,36 @@ system_prompt = """
 ・このコメント後にChatGPTが「ストーリー」を開始する
 """
 
+# st.session_stateを使いメッセージのやりとりを保存
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [
+        {"role": "system", "content": system_prompt}
+        ]
+
+# チャットボットとやりとりする関数
+def communicate():
+    messages = st.session_state["messages"]
+
+    user_message = {"role": "user", "content": st.session_state["user_input"]}
+    messages.append(user_message)
+
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
+
+    bot_message = response["choices"][0]["message"]
+    messages.append(bot_message)
+
+    st.session_state["user_input"] = ""  # 入力欄を消去
+
+
+# ユーザーインターフェイスの構築
+st.title(" 対話型ゲーム")
+st.image("mr_runaway.png")
+st.write("※ChatGPT APIを使ったチャットボットです。")
+st.write("行動回数が0になる前にドラゴンから逃げ切ってください。")
+
 # 難易度の選択肢
 difficulty_options = ["簡単", "普通", "難しい"]
 
@@ -71,38 +101,6 @@ else:  # "難しい"
         ・「逃亡者」は、武器として竹槍を持っています
     """
     st.write("残り行動回数は３回です。武器には、竹槍があります。")
-    
-
-
-# st.session_stateを使いメッセージのやりとりを保存
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "system", "content": system_prompt}
-        ]
-
-# チャットボットとやりとりする関数
-def communicate():
-    messages = st.session_state["messages"]
-
-    user_message = {"role": "user", "content": st.session_state["user_input"]}
-    messages.append(user_message)
-
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )
-
-    bot_message = response["choices"][0]["message"]
-    messages.append(bot_message)
-
-    st.session_state["user_input"] = ""  # 入力欄を消去
-
-
-# ユーザーインターフェイスの構築
-st.title(" 対話型ゲーム")
-st.image("mr_runaway.png")
-st.write("※ChatGPT APIを使ったチャットボットです。")
-st.write("行動回数が0になる前にドラゴンから逃げ切ってください。")
 
 user_input = st.text_input("メッセージを入力してください。", key="user_input", on_change=communicate)
 

@@ -2,7 +2,6 @@
 import streamlit as st
 import openai
 
-
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 system_prompt = """
@@ -96,8 +95,6 @@ def communicate():
     messages.append(bot_message)
 
     st.session_state["user_input"] = ""  # 入力欄を消去
-
-
 
 
 user_input = st.text_input("メッセージを入力してください。", key="user_input", on_change=communicate)

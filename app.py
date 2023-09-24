@@ -15,10 +15,16 @@ st.session_state["difficulty"] = difficulty
 
 # 難易度に基づいてゲームの挙動を調整
 if st.session_state["difficulty"] == "簡単":
+    st.session_state["action_count"] = 7
+    st.session_state["initial_equipment"] = "木の棒"
     st.write("行動回数は７回です。初期装備は、「木の棒」です。")
 elif st.session_state["difficulty"] == "普通":
+    st.session_state["action_count"] = 5
+    st.session_state["initial_equipment"] = "ナイフ"
     st.write("行動回数は５回です。初期装備は、「ナイフ」です。")
 else:  # "難しい"
+    st.session_state["action_count"] = 3
+    st.session_state["initial_equipment"] = "ライフル"
     st.write("行動回数は３回です。初期装備は、「ライフル」です。")
 
 

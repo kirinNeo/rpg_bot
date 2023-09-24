@@ -4,6 +4,24 @@ import openai
 
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
+# 難易度の選択肢
+difficulty_options = ["簡単", "普通", "難しい"]
+
+# ユーザーに難易度を選ばせる
+difficulty = st.selectbox("難易度を選んでください：", difficulty_options)
+
+# 選択された難易度を保存
+st.session_state["difficulty"] = difficulty
+
+# 難易度に基づいてゲームの挙動を調整
+if st.session_state["difficulty"] == "簡単":
+    st.write("行動回数は７回です。初期装備は、「木の棒」です。")
+elif st.session_state["difficulty"] == "普通":
+    st.write("行動回数は５回です。初期装備は、「ナイフ」です。")
+else:  # "難しい"
+    st.write("行動回数は３回です。初期装備は、「ライフル」です。")
+
+
 system_prompt = """
 このスレッドでは以下ルールを厳格に守ってください。
 今からシミュレーションゲームを行います。私が逃亡者で、ChatGPTはゲームマスターです。

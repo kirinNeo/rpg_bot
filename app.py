@@ -48,6 +48,31 @@ system_prompt = """
 　　・その後は、どのような行動も受け付けない
 ・このコメント後にChatGPTが「ストーリー」を開始する
 """
+# ユーザーインターフェイスの構築
+st.title(" 対話型ゲーム")
+st.image("mr_runaway.png")
+st.write("※ChatGPT APIを使ったチャットボットです。")
+st.write("行動回数が0になる前にドラゴンから逃げ切ってください。")
+
+# 難易度の選択肢
+difficulty_options = ["簡単", "普通", "難しい"]
+
+# ユーザーに難易度を選ばせる
+difficulty = st.selectbox("難易度を選んでください：", difficulty_options)
+
+# 選択された難易度を保存
+st.session_state["difficulty"] = difficulty
+
+# 難易度に基づいてゲームの挙動を調整
+if st.session_state["difficulty"] == "簡単":
+    st.write("行動回数は７回です。初期装備は、「木の棒」です。")
+
+elif st.session_state["difficulty"] == "普通":
+    st.write("行動回数は５回です。初期装備は、「ナイフ」です。")
+    
+else:  # "難しい"
+    st.write("行動回数は３回です。初期装備は、「ライフル」です。")
+
 
 # st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
@@ -73,30 +98,7 @@ def communicate():
     st.session_state["user_input"] = ""  # 入力欄を消去
 
 
-# ユーザーインターフェイスの構築
-st.title(" 対話型ゲーム")
-st.image("mr_runaway.png")
-st.write("※ChatGPT APIを使ったチャットボットです。")
-st.write("行動回数が0になる前にドラゴンから逃げ切ってください。")
 
-# 難易度の選択肢
-difficulty_options = ["簡単", "普通", "難しい"]
-
-# ユーザーに難易度を選ばせる
-difficulty = st.selectbox("難易度を選んでください：", difficulty_options)
-
-# 選択された難易度を保存
-st.session_state["difficulty"] = difficulty
-
-# 難易度に基づいてゲームの挙動を調整
-if st.session_state["difficulty"] == "簡単":
-    st.write("行動回数は７回です。初期装備は、「木の棒」です。")
-
-elif st.session_state["difficulty"] == "普通":
-    st.write("行動回数は５回です。初期装備は、「ナイフ」です。")
-    
-else:  # "難しい"
-    st.write("行動回数は３回です。初期装備は、「ライフル」です。")
 
 user_input = st.text_input("メッセージを入力してください。", key="user_input", on_change=communicate)
 

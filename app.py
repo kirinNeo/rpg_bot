@@ -13,7 +13,7 @@ st.write("※ChatGPT APIを使ったチャットボットです。")
 difficulty_options = ["簡単", "普通", "難しい"]
 
 # ユーザーに難易度を選ばせる
-difficulty = st.selectbox("難易度を選んでください：", difficulty_options)
+difficulty = st.selectbox("## 難易度を選んでください：", difficulty_options)
 
 # 選択された難易度を保存
 st.session_state["difficulty"] = difficulty
@@ -32,7 +32,7 @@ else:  # "難しい"
     st.session_state["initial_equipment"] = "ライフル"
     st.write("行動回数は３回です。初期装備は、「ライフル」です。")
 
-st.write("行動回数が0になる前にドラゴンから逃げ切ってください。")
+st.write("## 行動回数が0になる前にドラゴンから逃げ切ってください。")
 
 
 system_prompt = """

@@ -21,18 +21,18 @@ st.session_state["difficulty"] = difficulty
 # 難易度に基づいてゲームの挙動を調整
 if st.session_state["difficulty"] == "簡単":
     st.session_state["action_count"] = 7
-    st.session_state["initial_equipment"] = "木の棒"
-    st.write("行動回数は７回です。初期装備は、「木の棒」です。")
+    st.session_state["initial_equipment"] = "ライフル"
+    st.write("行動回数は７回です。初期装備は、「ライフル」です。")
 elif st.session_state["difficulty"] == "普通":
     st.session_state["action_count"] = 5
     st.session_state["initial_equipment"] = "ナイフ"
     st.write("行動回数は５回です。初期装備は、「ナイフ」です。")
 else:  # "難しい"
     st.session_state["action_count"] = 3
-    st.session_state["initial_equipment"] = "ライフル"
-    st.write("行動回数は３回です。初期装備は、「ライフル」です。")
+    st.session_state["initial_equipment"] = "竹槍"
+    st.write("行動回数は３回です。初期装備は、「竹槍」です。")
 
-st.write("### 行動回数が0になる前にドラゴンから逃げ切ってください。")
+st.write("#### 行動回数が0になる前にドラゴンから逃げ切ってください。")
 
 
 system_prompt = """
@@ -54,10 +54,7 @@ system_prompt = """
 　　・「ストーリー」の内容を150文字以内で簡潔に表示し改行
 　　・「どうする？」を表示。その後に、私が「逃亡者の行動」を回答。
 ・「難易度について」
-    ・選択された「難易度」によって、「逃亡者」の初期装備が変わる 
-        ・「難易度」が「簡単」なら、「初期装備」は「木の棒」
-        ・「難易度」が「普通」なら、「初期装備」は「ナイフ」
-        ・「難易度」が「難しい」なら、「初期装備」は「ライフル」
+    ・選択された「難易度」によって、ドラゴンから逃げ切れる確率が変わる
 ・「逃亡者の行動」について
 　・「ストーリー」の後に、「逃亡者の行動」が回答出来る
 　・「逃亡者の行動」をするたびに、「残り行動回数」が1回減る。
